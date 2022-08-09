@@ -1,29 +1,33 @@
-<div class="container"
-     fxLayout="column"
-     fxLayoutGap="10px">
-
+<div class="container" fxLayout="column" fxLayoutGap="10px">
   <div fxFlex>
     <div>
       <h3>Menu</h3>
-      <hr>
+      <hr />
     </div>
   </div>
 
   <div fxFlex *ngIf="dishes">
     <mat-grid-list cols="2" rowHeight="200px">
-      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]">
-        <img height="200px" src={{dish.image}} alt={{dish.name}}>
+      <mat-grid-tile
+        *ngFor="let dish of dishes"
+        [routerLink]="['/dishdetail', dish.id]"
+      >
+        <img height="200px" src="{{ dish.image }}" alt="{{ dish.name }}" />
         <mat-grid-tile-footer>
-          <h1>{{dish.name | uppercase}}</h1>
+          <h1>{{ dish.name | uppercase }}</h1>
         </mat-grid-tile-footer>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
   <!-- IF Dishes is not null-->
-  <div [hidden]="dishes" >
-    <mat-spinner [hidden]="dishes" style="margin:0 auto;" mode="indeterminate"></mat-spinner>
-  <h4 style="display: flex; justify-content: center;" >Loading . . . Please Wait</h4>
+  <div [hidden]="dishes">
+    <mat-spinner
+      [hidden]="dishes"
+      style="margin: 0 auto"
+      mode="indeterminate"
+    ></mat-spinner>
+    <h4 style="display: flex; justify-content: center">
+      Loading . . . Please Wait
+    </h4>
   </div>
-
-  
 </div>
