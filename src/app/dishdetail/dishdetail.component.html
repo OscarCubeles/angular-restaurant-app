@@ -47,5 +47,100 @@
             </p>
             </mat-list-item>
           </mat-list>
+
+          <div
+            fxFlex="40"
+            fxFlexOffset="20px"
+            class="container"
+            fxLayoutAlign="center"
+            fxLayout="row"
+          >
+            <form
+              class="full-size"
+              novalidate
+              #fform="ngForm"
+            >
+              <h2>
+                Add your comment:
+              </h2>
+              <mat-form-field class="full-size">
+                <input
+                  matInput
+                  placeholder="User Name"
+                  type="text"
+                  required
+                />
+              </mat-form-field>
+              <mat-slider thumbLabel  min="1" max="5" step="1" value="1.5"></mat-slider>
+              <mat-form-field class="full-size">
+                <textarea
+                  matInput
+                  placeholder="Your Comment"
+                  rows="12"
+                ></textarea>
+              </mat-form-field>
+              
+              
+              <button
+                type="submit"
+                mat-button
+                class="background-primary text-floral-white"
+              >
+              Submit
+            </button>
+            </form>
+          </div>
     </div>
+    
+    <!--
+    <div
+    fxFlex
+    fxFlexOffset="20px"
+    class="form-size"
+    fxLayoutAlign="center"
+    fxLayout="row"
+  >
+    <form
+      class="form-size"
+      novalidate
+      #fform="ngForm"
+      [formGroup]="feedbackForm"
+      (ngSubmit)="onSubmit()"
+    >
+      <p>
+        <mat-form-field class="half-width">
+          <input
+            matInput
+            formControlName="firstname"
+            placeholder="First Name"
+            type="text"
+            required
+          />
+          <mat-error *ngIf="formErrors.firstname">{{
+            formErrors.firstname
+          }}</mat-error>
+        </mat-form-field>
+      <p>
+        <mat-form-field class="full-width">
+          <textarea
+            matInput
+            formControlName="message"
+            placeholder="Your Feedback"
+            rows="12"
+          ></textarea>
+        </mat-form-field>
+      </p>
+      <button
+        type="submit"
+        mat-button
+        class="background-primary text-floral-white"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+-->
+
+
+
 </div>

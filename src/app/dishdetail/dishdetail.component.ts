@@ -9,6 +9,10 @@ import { Location } from '@angular/common';
 
 import { switchMap } from 'rxjs/operators';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Feedback, ContactType } from '../shared/feedback';
+
+
 
 @Component({
   selector: 'app-dishdetail',
@@ -21,21 +25,30 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
 
+  feedbackForm: FormGroup;
+  /*
+  feedback: Feedback;
+  formErrors:any;
+  validationMessages: any;
+*/
+
   constructor(
     private dishservice: DishService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private fb: FormBuilder
   ) {
     this.prev = "";
     this.next = "";
     this.dishIds = [];
     this.dish = new Dish();
+    this.feedbackForm = this.fb.group({
+      name: ['', Validators.required ],
+      rating: ['', Validators.required ],
+      comment: ['', Validators.required ]
+    });
   }
-/*
-  ngOnInit(): void {
-    const id = this.route.snapshot.params['id'];
-    this.dishservice.getDish(id).subscribe((dish) => (this.dish = dish));
-  }*/
+
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(params['id'])))
@@ -50,5 +63,9 @@ export class DishdetailComponent implements OnInit {
 
   goBack(): void {
     this.location.back();
+  }
+
+  onSubmit() {
+
   }
 }
