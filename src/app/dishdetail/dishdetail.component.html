@@ -55,10 +55,13 @@
             fxLayoutAlign="center"
             fxLayout="row"
           >
+          <p>{{ feedbackForm.value | json }}</p>
             <form
               class="full-size"
               novalidate
               #fform="ngForm"
+              [formGroup]="feedbackForm"
+              (ngSubmit)="onSubmit()"
             >
               <h2>
                 Add your comment:
@@ -66,18 +69,28 @@
               <mat-form-field class="full-size">
                 <input
                   matInput
-                  placeholder="User Name"
+                  placeholder="Author"
                   type="text"
+                  formControlName="author"
                   required
                 />
+                <mat-error *ngIf="formErrors.author">{{
+                  formErrors.author
+                }}</mat-error>
               </mat-form-field>
-              <mat-slider thumbLabel  min="1" max="5" step="1" value="1.5"></mat-slider>
+              <label>Your Rating:</label>
+              <mat-slider thumbLabel  min="1" max="5" step="1" value="5" required></mat-slider>
               <mat-form-field class="full-size">
                 <textarea
                   matInput
                   placeholder="Your Comment"
+                  formControlName="comment"
                   rows="12"
+                  required
                 ></textarea>
+                <mat-error *ngIf="formErrors.author">{{
+                  formErrors.author
+                }}</mat-error>
               </mat-form-field>
               
               
