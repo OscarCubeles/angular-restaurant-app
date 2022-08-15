@@ -43,8 +43,15 @@
                 <span> {{comment.rating}} stars</span>
             </p>
             <p matLine>
-                <span>-- {{comment.author}} {{comment.date | date: 'mediumDate'}}</span>
+                <span>-- {{comment.author}}. {{comment.date | date: 'mediumDate'}}</span>
             </p>
+            </mat-list-item>
+            <mat-list-item>
+              <p matLine>{{ commentForm.value.comment }}</p>
+              <p matLine>
+                <span> {{matslider.value}} stars</span>
+              </p>   
+              <p matLine>-- {{ commentForm.value.author }}. {{date | date: 'mediumDate'}}</p>
             </mat-list-item>
           </mat-list>
 
@@ -55,12 +62,11 @@
             fxLayoutAlign="center"
             fxLayout="row"
           >
-          <p>{{ feedbackForm.value | json }}</p>
             <form
               class="full-size"
               novalidate
               #fform="ngForm"
-              [formGroup]="feedbackForm"
+              [formGroup]="commentForm"
               (ngSubmit)="onSubmit()"
             >
               <h2>
@@ -79,7 +85,7 @@
                 }}</mat-error>
               </mat-form-field>
               <label>Your Rating:</label>
-              <mat-slider thumbLabel  min="1" max="5" step="1" value="5" required></mat-slider>
+              <mat-slider #matslider thumbLabel  min="1" max="5" step="1" value="5" required></mat-slider>
               <mat-form-field class="full-size">
                 <textarea
                   matInput
@@ -88,8 +94,8 @@
                   rows="12"
                   required
                 ></textarea>
-                <mat-error *ngIf="formErrors.author">{{
-                  formErrors.author
+                <mat-error *ngIf="formErrors.comment">{{
+                  formErrors.comment
                 }}</mat-error>
               </mat-form-field>
               
@@ -117,7 +123,7 @@
       class="form-size"
       novalidate
       #fform="ngForm"
-      [formGroup]="feedbackForm"
+      [formGroup]="commentForm"
       (ngSubmit)="onSubmit()"
     >
       <p>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DISHES } from '../shared/dishes';
 
@@ -25,9 +25,14 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
 
-  feedbackForm: FormGroup;
+  commentForm: FormGroup;
   formErrors:any;
   validationMessages: any;
+  id:any;
+
+  date:Date;
+
+  @ViewChild('fform') feedbackFormDirective: any;
 
 
   constructor(
@@ -40,45 +45,44 @@ export class DishdetailComponent implements OnInit {
     this.next = "";
     this.dishIds = [];
     this.dish = new Dish();
-    this.feedbackForm = this.fb.group({
+    this.date = new Date();
+    this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      rating: ['', Validators.required ],
+      
       comment: ['', [Validators.required, Validators.minLength(2)] ]
     });
     this.formErrors = {
       'author': '',
       'rating': '',
-      'comment': ''
+      'comment': '',
     };
     this.validationMessages = {
       'author': {
-        'required':      'First Name is required.',
-        'minlength':     'First Name must be at least 2 characters long.',
-        'maxlength':     'FirstName cannot be more than 25 characters long.'
+        'required':      'Author is required.',
+        'minlength':     'Author must be at least 2 characters long.',
+        'maxlength':     'Author cannot be more than 25 characters long.'
       },
       'comment': {
-        'required':      'Last Name is required.',
-        'minlength':     'Last Name must be at least 2 characters long.',
-        'maxlength':     'Last Name cannot be more than 25 characters long.'
+        'required':      'Comment is required.',
+        'minlength':     'Comment must be at least 2 characters long.',
+        'maxlength':     'Comment cannot be more than 25 characters long.'
       },
       'rating': {
-        'required':      'Tel. number is required.',
-        'pattern':       'Tel. number must cannot contain letters, only numbers.'
+        'required':      'Rating is required.',
+        'pattern':       'Rating must cannot contain letters, only numbers.'
       }
     };
     this.createForm();
   }
 
   createForm() {
-    this.feedbackForm = this.fb.group({
+    this.commentForm = this.fb.group({
       author: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
-      rating: ['', Validators.required ],
       comment: ['', [Validators.required, Validators.minLength(2)] ]
     });
-    this.feedbackForm.valueChanges
+    this.commentForm.valueChanges
     .subscribe(data => this.onValueChanged(data));
     this.onValueChanged();
-   
   }
 
 
@@ -99,12 +103,31 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
+    let form = this.commentForm;
+    if(this.isFormValid()){
+      console.log("Comment Submitted.");
+      form.reset({
+        author: '',
+        comment:''
+      });
+      this.feedbackFormDirective.resetForm();
+
+    }else{
+      console.log("Form not submitted. There are errors with the form fields.");
+    }
+    // TODO: Get the dish and add the comment in the dish comment list
+    this.route.params.subscribe(id => this.id = id);
+    console.log(this.id);
+    
+  }
+
+  isFormValid(): boolean{
+    return this.commentForm.status === "VALID" ? true : false;
   }
 
   onValueChanged(data?: any) {
-    if (!this.feedbackForm) { return; }
-    const form = this.feedbackForm;
-    
+    if (!this.commentForm) { return; }
+    const form = this.commentForm;
     for (const field in this.formErrors) {
       if (this.formErrors.hasOwnProperty(field)) {
         // clear previous error message (if any)
@@ -121,4 +144,5 @@ export class DishdetailComponent implements OnInit {
       }
     }
   }
+
 }
