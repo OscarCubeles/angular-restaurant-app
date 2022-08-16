@@ -4,10 +4,13 @@ export class Comment {
     author: string; 
     date: string; 
 
-    constructor(){
-        this.rating = 0;
-        this.comment = "";
-        this.author = "";
-        this.date = "";
+    constructor(rating: number, comment:string, author:string){
+        this.rating = rating;
+        this.comment = comment;
+        this.author = author;
+        this.date = new Date().toDateString();
     }
+
+     
+
 }

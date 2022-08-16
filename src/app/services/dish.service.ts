@@ -3,6 +3,11 @@ import { Dish } from '../shared/dish';
 import { DISHES } from '../shared/dishes';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
+import { Comment } from '../shared/comments';
+
+interface LooseObject {
+  [key: string]: any;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +28,18 @@ export class DishService {
   }
 
   getDishIds(): Observable<string[] | any> {
-    return of(DISHES.map(dish => dish.id ));
+    return of(DISHES.map((dish) => dish.id));
+  }
+
+  addDishComment(
+    dishId: number,
+    author: string,
+    comment: string,
+    rating: number
+  ): void {
+    var newComment = new Comment(rating, comment, author);
+
+    var dishes = DISHES;
+    dishes[dishId].comments.push(newComment);
   }
 }
