@@ -5,10 +5,6 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { Comment } from '../shared/comments';
 
-interface LooseObject {
-  [key: string]: any;
-}
-
 @Injectable({
   providedIn: 'root',
 })
