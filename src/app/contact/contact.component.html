@@ -6,74 +6,37 @@
     </div>
   </div>
 
-  <div
-    fxFlex
-    fxFlexOffset="20px"
-    class="form-size"
-    fxLayoutAlign="center"
-    fxLayout="row"
-  >
-    <form
-      class="form-size"
-      novalidate
-      #fform="ngForm"
-      [formGroup]="feedbackForm"
-      (ngSubmit)="onSubmit()"
-    >
+  <div fxFlex fxFlexOffset="20px" class="form-size" fxLayoutAlign="center" fxLayout="row">
+    <form class="form-size" novalidate #fform="ngForm" [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="half-width">
-          <input
-            matInput
-            formControlName="firstname"
-            placeholder="First Name"
-            type="text"
-            required
-          />
+          <input matInput formControlName="firstname" placeholder="First Name" type="text" required />
           <mat-error *ngIf="formErrors.firstname">{{
             formErrors.firstname
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
-          <input
-            matInput
-            formControlName="lastname"
-            placeholder="Last Name"
-            type="text"
-            required
-          />
+          <input matInput formControlName="lastname" placeholder="Last Name" type="text" required />
           <mat-error *ngIf="formErrors.lastname">{{
             formErrors.lastname
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </p>
       <p>
         <mat-form-field class="half-width">
-          <input
-            matInput
-            formControlName="telnum"
-            placeholder="Tel. Number"
-            type="tel"
-            required
-          />
+          <input matInput formControlName="telnum" placeholder="Tel. Number" type="tel" required />
           <mat-error *ngIf="formErrors.telnum">{{
             formErrors.telnum
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
         <mat-form-field class="half-width">
-          <input
-            matInput
-            formControlName="email"
-            placeholder="Email"
-            type="email"
-          />
+          <input matInput formControlName="email" placeholder="Email" type="email" />
           <mat-error *ngIf="formErrors.email">{{ formErrors.email }}</mat-error>
         </mat-form-field>
       </p>
       <table class="form-size">
         <td>
-          <mat-slide-toggle formControlName="agree"
-            >May we contact you?</mat-slide-toggle
-          >
+          <mat-slide-toggle formControlName="agree">May we contact you?</mat-slide-toggle>
         </td>
         <td>
           <mat-select placeholder="How?" formControlName="contacttype">
@@ -85,19 +48,10 @@
       </table>
       <p>
         <mat-form-field class="full-width">
-          <textarea
-            matInput
-            formControlName="message"
-            placeholder="Your Feedback"
-            rows="12"
-          ></textarea>
+          <textarea matInput formControlName="message" placeholder="Your Feedback" rows="12"></textarea>
         </mat-form-field>
       </p>
-      <button
-        type="submit"
-        mat-button
-        class="background-primary text-floral-white"
-      >
+      <button type="submit" mat-button class="background-primary text-floral-white">
         Submit
       </button>
     </form>
@@ -119,13 +73,9 @@
         </address>
         <p></p>
         <div>
-          <a mat-raised-button href="tel:+85212345678"
-            ><i class="fa fa-phone"></i> Call</a
-          >
+          <a mat-raised-button href="tel:+85212345678"><i class="fa fa-phone"></i> Call</a>
           <a mat-raised-button><i class="fa fa-skype"></i> Skype</a>
-          <a mat-raised-button href="mailto:confusion@food.net"
-            ><i class="fa fa-envelope-o"></i> Email</a
-          >
+          <a mat-raised-button href="mailto:confusion@food.net"><i class="fa fa-envelope-o"></i> Email</a>
         </div>
       </div>
       <div fxFlex="40">
