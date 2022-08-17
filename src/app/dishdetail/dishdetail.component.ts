@@ -18,6 +18,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 
 import { visibility } from '../animations/app.animation';
+import { Comment } from '../shared/comments';
+
 
 @Component({
   selector: 'app-dishdetail',
@@ -32,10 +34,13 @@ export class DishdetailComponent implements OnInit {
   next: string;
   visibility = 'shown';
 
+  dishcopy: Dish;
+
   commentForm: FormGroup;
   formErrors: any;
   validationMessages: any;
   id: any;
+  errMess: string;
 
   date: Date;
 
@@ -52,7 +57,9 @@ export class DishdetailComponent implements OnInit {
     this.next = '';
     this.dishIds = [];
     this.dish = new Dish();
+    this.dishcopy = new Dish();
     this.date = new Date();
+    this.errMess = "";
     this.commentForm = this.fb.group({
       author: [
         '',
@@ -119,15 +126,19 @@ export class DishdetailComponent implements OnInit {
       )
       .subscribe((dish) => {
         this.dish = dish;
+        this.dishcopy = dish;
         this.setPrevNext(dish.id);
         this.visibility = 'shown';
       });
+
+
   }
 
   /*
-        this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); }))
-    .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown'; },
-      errmess => this.errMess = <any>errmess);
+        this.route.params
+      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
+        errmess => this.errMess = <any>errmess );
   */
 
   setPrevNext(dishId: string) {
@@ -155,13 +166,23 @@ export class DishdetailComponent implements OnInit {
     this.route.params.subscribe((id) => (this.id = id['id']));
     let author: string = this.commentForm.value['author'];
     let commentStr: string = this.commentForm.value['comment'];
-    this.dishservice.addDishComment(
-      this.id,
-      author,
-      commentStr,
-      this.getRatingValue()
-    );
+    var newComment = new Comment(this.getRatingValue(), commentStr, author);
+    this.dishcopy.comments.push(newComment);
+    this.dishservice.putDish(this.dishcopy)
+    .subscribe({
+      next: (dishes) => (this.dish = dishes, this.dishcopy = dishes),
+      error: (errmess) => (this.dish = new Dish(), this.dishcopy = new Dish(), this.errMess = <any>errmess),
+      complete: () => console.info('complete'),
+    });
   }
+
+  /*
+  .subscribe({
+      next: (dishes) => (this.dishes = dishes),
+      error: (errmess) => (this.errMSG = <any>errmess),
+      complete: () => console.info('complete'),
+    });
+  */
 
   isFormValid(): boolean {
     return this.commentForm.status === 'VALID' ? true : false;

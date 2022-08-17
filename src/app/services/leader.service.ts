@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Leader } from '../shared/leader';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { map } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { baseURL } from '../shared/baseurl';
+import { ProcessHTTPMsgService } from './process-httpmsg.service';
 
 
 
@@ -12,19 +13,20 @@ import { baseURL } from '../shared/baseurl';
   providedIn: 'root',
 })
 export class LeaderService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    private processHTTPMsgService: ProcessHTTPMsgService) {}
 
   getLeaders(): Observable<Leader[]> {
-    return this.http.get<Leader[]>(baseURL + 'leadership');
+    return this.http.get<Leader[]>(baseURL + 'leadership').pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getLeader(id: String): Observable<Leader> {
-    return this.http.get<Leader>(baseURL + 'leadership/' + id);
+    return this.http.get<Leader>(baseURL + 'leadership/' + id).pipe(catchError(this.processHTTPMsgService.handleError));
   }
 
   getFeaturedLeader(): Observable<Leader> {
     return this.http
     .get<Leader[]>(baseURL + 'leadership?featured=true')
-    .pipe(map((dishes) => dishes[0]));
+    .pipe(map((dishes) => dishes[0])).pipe(catchError(this.processHTTPMsgService.handleError));
   }
 }
