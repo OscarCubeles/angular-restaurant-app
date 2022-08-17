@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
-import { DISHES } from '../shared/dishes';
 
 import { DishService } from '../services/dish.service';
 
