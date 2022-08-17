@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { DISHES } from '../shared/dishes';
 
@@ -36,7 +36,8 @@ export class DishdetailComponent implements OnInit {
     private dishservice: DishService,
     private route: ActivatedRoute,
     private location: Location,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    @Inject('BaseURL') public baseURL: any
   ) {
     this.prev = '';
     this.next = '';

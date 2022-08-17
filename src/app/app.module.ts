@@ -45,6 +45,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
+import { HttpClientModule } from '@angular/common/http';
+import { baseURL } from './shared/baseurl';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,8 +83,9 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     FormsModule,
     MatSliderModule,
     MatProgressSpinnerModule,
+    HttpClientModule
   ],
-  providers: [DishService, PromotionService, LeaderService],
+  providers: [DishService, PromotionService, LeaderService, {provide: 'BaseURL', useValue: baseURL}],
   entryComponents: [LoginComponent],
   bootstrap: [AppComponent],
 })
