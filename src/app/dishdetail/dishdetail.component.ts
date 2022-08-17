@@ -62,7 +62,6 @@ export class DishdetailComponent implements OnInit {
           Validators.maxLength(25),
         ],
       ],
-
       comment: ['', [Validators.required, Validators.minLength(2)]],
     });
     this.formErrors = {

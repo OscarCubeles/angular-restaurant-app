@@ -87,8 +87,8 @@ import { HighlightDirective } from './directives/highlight.directive';
     MatProgressSpinnerModule,
     HttpClientModule
   ],
-  providers: [DishService, PromotionService, LeaderService, {provide: 'BaseURL', useValue: baseURL}],
+  providers: [DishService, PromotionService, LeaderService, { provide: 'BaseURL', useValue: baseURL }],
   entryComponents: [LoginComponent],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

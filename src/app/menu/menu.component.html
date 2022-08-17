@@ -6,14 +6,9 @@
     </div>
   </div>
 
-  <div fxFlex *ngIf="dishes" >
+  <div fxFlex *ngIf="dishes">
     <mat-grid-list [@expand] cols="2" rowHeight="200px">
-      <mat-grid-tile
-        *ngFor="let dish of dishes"
-        [routerLink]="['/dishdetail', dish.id]"
-        appHighlight
-        
-      >
+      <mat-grid-tile *ngFor="let dish of dishes" [routerLink]="['/dishdetail', dish.id]" appHighlight>
         <img height="200px" src="{{ baseURL + dish.image }}" alt="{{ dish.name }}" />
         <mat-grid-tile-footer>
           <h1>{{ dish.name | uppercase }}</h1>
@@ -23,17 +18,13 @@
   </div>
   <!-- IF Dishes is not null-->
   <div [hidden]="dishes || errMSG">
-    <mat-spinner
-      [hidden]="dishes"
-      style="margin: 0 auto"
-      mode="indeterminate"
-    ></mat-spinner>
+    <mat-spinner [hidden]="dishes" style="margin: 0 auto" mode="indeterminate"></mat-spinner>
     <h4 style="display: flex; justify-content: center">
       Loading . . . Please Wait
     </h4>
   </div>
   <div fxFlex *ngIf="errMSG">
     <h2>Error</h2>
-    <h4>{{errMSG}}</h4>
+    <h4>{{ errMSG }}</h4>
   </div>
 </div>
