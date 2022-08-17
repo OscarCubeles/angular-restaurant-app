@@ -1,4 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { FeedbackService } from '../services/feedback.service';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
@@ -17,13 +18,16 @@ export class ContactComponent implements OnInit {
 
   feedbackForm: FormGroup;
   feedback: Feedback;
+  feedbackCopy: Feedback;
   contactType = ContactType;
   formErrors:any;
   validationMessages: any;
+  errMess: string;
 
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private feedbackService: FeedbackService) {
     this.feedback = new Feedback();
+    this.feedbackCopy = new Feedback();
     this.feedbackForm = this.fb.group({
       firstname: ['', Validators.required ],
       lastname: ['', Validators.required ],
@@ -33,6 +37,7 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     });
+    this.errMess = "";
     this.formErrors = {
       'firstname': '',
       'lastname': '',
@@ -85,6 +90,15 @@ export class ContactComponent implements OnInit {
 
   onSubmit() {
     this.feedback = this.feedbackForm.value;
+    this.feedbackService.postFeedback(this.feedback).subscribe({
+      next: (feedback) => ((this.feedback = feedback), (this.feedbackCopy = feedback)),
+      error: (errmess) => (
+        (this.feedback = new Feedback()),
+        (this.feedbackCopy = new Feedback()),
+        (this.errMess = <any>errmess)
+      ),
+      complete: () => console.info('complete'),
+    });;
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',

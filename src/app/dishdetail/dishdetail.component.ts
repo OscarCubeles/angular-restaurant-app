@@ -6,20 +6,14 @@ import {
   Inject,
 } from '@angular/core';
 import { Dish } from '../shared/dish';
-
 import { DishService } from '../services/dish.service';
-
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-
 import { switchMap } from 'rxjs/operators';
-
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
-
 import { visibility } from '../animations/app.animation';
 import { Comment } from '../shared/comments';
-
 
 @Component({
   selector: 'app-dishdetail',
@@ -33,15 +27,12 @@ export class DishdetailComponent implements OnInit {
   prev: string;
   next: string;
   visibility = 'shown';
-
   dishcopy: Dish;
-
   commentForm: FormGroup;
   formErrors: any;
   validationMessages: any;
   id: any;
   errMess: string;
-
   date: Date;
 
   @ViewChild('fform') feedbackFormDirective: any;
@@ -59,7 +50,7 @@ export class DishdetailComponent implements OnInit {
     this.dish = new Dish();
     this.dishcopy = new Dish();
     this.date = new Date();
-    this.errMess = "";
+    this.errMess = '';
     this.commentForm = this.fb.group({
       author: [
         '',
@@ -130,16 +121,7 @@ export class DishdetailComponent implements OnInit {
         this.setPrevNext(dish.id);
         this.visibility = 'shown';
       });
-
-
   }
-
-  /*
-        this.route.params
-      .pipe(switchMap((params: Params) => this.dishService.getDish(params['id'])))
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); },
-        errmess => this.errMess = <any>errmess );
-  */
 
   setPrevNext(dishId: string) {
     const index = this.dishIds.indexOf(dishId);
@@ -168,21 +150,16 @@ export class DishdetailComponent implements OnInit {
     let commentStr: string = this.commentForm.value['comment'];
     var newComment = new Comment(this.getRatingValue(), commentStr, author);
     this.dishcopy.comments.push(newComment);
-    this.dishservice.putDish(this.dishcopy)
-    .subscribe({
-      next: (dishes) => (this.dish = dishes, this.dishcopy = dishes),
-      error: (errmess) => (this.dish = new Dish(), this.dishcopy = new Dish(), this.errMess = <any>errmess),
+    this.dishservice.putDish(this.dishcopy).subscribe({
+      next: (dishes) => ((this.dish = dishes), (this.dishcopy = dishes)),
+      error: (errmess) => (
+        (this.dish = new Dish()),
+        (this.dishcopy = new Dish()),
+        (this.errMess = <any>errmess)
+      ),
       complete: () => console.info('complete'),
     });
   }
-
-  /*
-  .subscribe({
-      next: (dishes) => (this.dishes = dishes),
-      error: (errmess) => (this.errMSG = <any>errmess),
-      complete: () => console.info('complete'),
-    });
-  */
 
   isFormValid(): boolean {
     return this.commentForm.status === 'VALID' ? true : false;
