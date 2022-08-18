@@ -9,7 +9,7 @@
             <h3 *ngIf="dish">{{dish.name | uppercase}}</h3>
           </mat-card-title>
         </mat-card-header>
-        <img mat-card-image src={{baseURL+dish.image}} alt={{dish.name}}>
+        <img class="img-size" mat-card-image src={{baseURL+dish.image}} alt={{dish.name}}>
         <mat-card-content>
           <p>{{dish.description}}
           </p>
@@ -49,31 +49,32 @@
       </mat-list-item>
     </mat-list>
 
-    <div fxFlex="40" fxFlexOffset="20px" class="container" fxLayoutAlign="center" fxLayout="row">
-      <form class="full-size" novalidate #fform="ngForm" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
-        <h2>
-          Add your comment:
-        </h2>
-        <mat-form-field class="full-size">
-          <input matInput placeholder="Author" type="text" formControlName="author" required />
-          <mat-error *ngIf="formErrors.author">{{
-            formErrors.author
-            }}</mat-error>
-        </mat-form-field>
-        <label>Your Rating:</label>
-        <mat-slider id="matslider" #matslider thumbLabel min="1" max="5" step="1" value="5" required></mat-slider>
-        <mat-form-field class="full-size">
-          <textarea matInput placeholder="Your Comment" formControlName="comment" rows="12" required></textarea>
-          <mat-error *ngIf="formErrors.comment">{{
-            formErrors.comment
-            }}</mat-error>
-        </mat-form-field>
+    
+</div>
+<div fxFlex="40" fxFlexOffset="20px" class="container" fxLayoutAlign="center" fxLayout="row">
+  <form class="full-size" novalidate #fform="ngForm" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+    <h2>
+      Add your comment:
+    </h2>
+    <mat-form-field class="full-size">
+      <input matInput placeholder="Author" type="text" formControlName="author" required />
+      <mat-error *ngIf="formErrors.author">{{
+        formErrors.author
+        }}</mat-error>
+    </mat-form-field>
+    <label>Your Rating:</label>
+    <mat-slider id="matslider" #matslider thumbLabel min="1" max="5" step="1" value="5" required></mat-slider>
+    <mat-form-field class="full-size">
+      <textarea matInput placeholder="Your Comment" formControlName="comment" rows="12" required></textarea>
+      <mat-error *ngIf="formErrors.comment">{{
+        formErrors.comment
+        }}</mat-error>
+    </mat-form-field>
 
 
-        <button type="submit" mat-button class="background-primary text-floral-white">
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
+    <button type="submit" mat-button class="background-primary text-floral-white">
+      Submit
+    </button>
+  </form>
+</div>
 </div>
