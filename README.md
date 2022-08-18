@@ -8,7 +8,7 @@ Run `ng serve` for a dev server in restaurant-app folder. Navigate to `http://lo
 
 ## Json Server
 
-Run `json-server --watch db.json` for a json server json-server folder. Navigate to `http://localhost:3000/` to see the contents of the server.
+Run `json-server --watch db.json` for a json server in the json-server folder. Navigate to `http://localhost:3000/` to see the contents of the server.
 
 ## Code scaffolding
 
